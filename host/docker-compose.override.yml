@@ -1,10 +1,8 @@
-name: azerothcore-wotlk
-
 services:
   ac-database:
     image: docker.io/library/mysql:8.4
     volumes:
-      - ./env/mysql:/etc/mysql/conf.d:ro,Z
+      - ../env/mysql:/etc/mysql/conf.d:ro,Z
       - ./_tmp:/backups:ro,Z
 
   ac-db-import:
@@ -31,7 +29,7 @@ services:
       - ./env/dist/data/dbc/SkillRaceClassInfo.dbc:/azerothcore/env/dist/data/dbc/SkillRaceClassInfo.dbc:ro,Z
       - ./env/dist/data/dbc/Spell.dbc:/azerothcore/env/dist/data/dbc/Spell.dbc:ro,Z
       - ./env/dist/data/dbc/SpellItemEnchantment.dbc:/azerothcore/env/dist/data/dbc/SpellItemEnchantment.dbc:ro,Z
-    env_file: env/dist/config/worldserver.env
+    env_file: ../env/config/worldserver.env
 
   ac-authserver:
     image: localhost/acore/ac-wotlk-authserver:${DOCKER_IMAGE_TAG:-master}
@@ -50,7 +48,7 @@ services:
       dockerfile: !reset null
 
   ac-dev-server:
-    env_file: env/dist/config/worldserver.env
+    env_file: ../env/config/worldserver.env
 
 volumes:
   ac-logs:

@@ -1,8 +1,17 @@
 diff --git a/docker-compose.yml b/docker-compose.yml
-index f14f6dac8..3ca692b20 100644
+index f14f6dac8..9c2e4dd24 100644
 --- a/docker-compose.yml
 +++ b/docker-compose.yml
-@@ -44,12 +44,9 @@ services:
+@@ -5,6 +5,8 @@
+ # Don't make changes this file! make a `docker-compose.override.yml` and make your
+ # changes there instead.
+ 
++name: azerothcore-wotlk
++
+ services:
+   ac-database:
+     container_name: ac-database
+@@ -44,12 +46,9 @@ services:
        AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_world"
        AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
      volumes:
@@ -16,7 +25,7 @@ index f14f6dac8..3ca692b20 100644
  
    ac-worldserver:
      container_name: ac-worldserver
-@@ -80,18 +77,12 @@ services:
+@@ -80,18 +79,12 @@ services:
        - ${DOCKER_WORLD_EXTERNAL_PORT:-8085}:8085
        - ${DOCKER_SOAP_EXTERNAL_PORT:-7878}:7878
      volumes:
@@ -37,7 +46,7 @@ index f14f6dac8..3ca692b20 100644
  
    ac-authserver:
      container_name: ac-authserver
-@@ -115,16 +106,11 @@ services:
+@@ -115,16 +108,11 @@ services:
        AC_TEMP_DIR: "/azerothcore/env/dist/temp"
        AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
      volumes:
@@ -55,7 +64,7 @@ index f14f6dac8..3ca692b20 100644
  
    ac-client-data-init:
      container_name: ac-client-data-init
-@@ -170,7 +156,7 @@ services:
+@@ -170,7 +158,7 @@ services:
    # first-class support
    ac-dev-server:
      tty: true
@@ -64,7 +73,7 @@ index f14f6dac8..3ca692b20 100644
      build:
        context: .
        dockerfile: ./apps/docker/Dockerfile.dev-server
-@@ -194,17 +180,14 @@ services:
+@@ -194,17 +182,14 @@ services:
        - ${DOCKER_WORLD_EXTERNAL_PORT:-8085}:8085
        - ${DOCKER_SOAP_EXTERNAL_PORT:-7878}:7878
      volumes:

@@ -14,12 +14,9 @@ git clone https://github.com/hermensbas/mod_weather_vibe.git --branch main serve
 
 git clone git@github.com:Tehl/mod-altbot-sync.git --branch main server/modules/mod-altbot-sync
 
-ln -sf "$(pwd)/env/mysql" server/env/mysql
-ln -sf "$(pwd)/env/dist/config" server/env/dist/config
-
 ln -sf "$(pwd)/host/.env" server/.env
 ln -sf "$(pwd)/host/docker-compose.override.yml" server/docker-compose.override.yml
 
 cd server
-git apply ../patches/Dockerfile.patch
+git apply ../patches/docker-compose.patch
 cd ..
