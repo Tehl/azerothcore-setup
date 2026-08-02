@@ -1,0 +1,32 @@
+services:
+  ac-client-data-init:
+    container_name: ac-client-data-init
+    image: localhost/acore/ac-wotlk-client-data:master
+    volumes:
+      - systemd-ac-client-data:/azerothcore/env/dist/data
+
+  ac-db-import:
+    container_name: ac-db-import
+    image: localhost/acore/ac-wotlk-db-import:master
+    environment:
+      AC_DATA_DIR: "/azerothcore/env/dist/data"
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_auth"
+      AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_world"
+      AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_characters"
+    volumes:
+      - ./modules:/azerothcore/modules:ro,Z
+      - ./env/dist/etc:/azerothcore/env/dist/etc:ro,Z
+      - systemd-ac-logs:/azerothcore/env/dist/logs
+    networks:
+      - systemd-azerothcore
+
+networks:
+  systemd-azerothcore:
+    external: true
+
+volumes:
+  systemd-ac-client-data:
+    external: true
+  systemd-ac-logs:
+    external: true

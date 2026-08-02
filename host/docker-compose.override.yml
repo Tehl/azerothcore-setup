@@ -1,0 +1,56 @@
+name: azerothcore-wotlk
+
+services:
+  ac-database:
+    image: docker.io/library/mysql:8.4
+    volumes:
+      - ./env/mysql:/etc/mysql/conf.d:ro,Z
+      - ./_tmp:/backups:ro,Z
+
+  ac-db-import:
+    image: localhost/acore/ac-wotlk-db-import:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: !reset null
+      target: !reset null
+      dockerfile: !reset null
+    volumes:
+      - ./modules:/azerothcore/modules:ro,Z
+      - ./env/dist/etc:/azerothcore/env/dist/etc:ro,Z
+
+  ac-worldserver:
+    image: localhost/acore/ac-wotlk-worldserver:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: !reset null
+      target: !reset null
+      dockerfile: !reset null
+    volumes:
+      - ./modules:/azerothcore/modules:ro,Z
+      - ./env/dist/etc:/azerothcore/env/dist/etc:ro,Z
+      - ./env/dist/data/dbc/SkillLine.dbc:/azerothcore/env/dist/data/dbc/SkillLine.dbc:ro,Z
+      - ./env/dist/data/dbc/SkillLineAbility.dbc:/azerothcore/env/dist/data/dbc/SkillLineAbility.dbc:ro,Z
+      - ./env/dist/data/dbc/SkillRaceClassInfo.dbc:/azerothcore/env/dist/data/dbc/SkillRaceClassInfo.dbc:ro,Z
+      - ./env/dist/data/dbc/Spell.dbc:/azerothcore/env/dist/data/dbc/Spell.dbc:ro,Z
+      - ./env/dist/data/dbc/SpellItemEnchantment.dbc:/azerothcore/env/dist/data/dbc/SpellItemEnchantment.dbc:ro,Z
+    env_file: env/dist/config/worldserver.env
+
+  ac-authserver:
+    image: localhost/acore/ac-wotlk-authserver:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: !reset null
+      target: !reset null
+      dockerfile: !reset null
+    volumes:
+      - ./env/dist/etc:/azerothcore/env/dist/etc:ro,Z
+
+  ac-client-data-init:
+    image: localhost/acore/ac-wotlk-client-data:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: !reset null
+      target: !reset null
+      dockerfile: !reset null
+
+  ac-dev-server:
+    env_file: env/dist/config/worldserver.env
+
+volumes:
+  ac-logs:

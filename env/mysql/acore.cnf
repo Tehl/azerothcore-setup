@@ -1,0 +1,9 @@
+[mysqld]
+skip-log-bin                    # Disables binary logging — reduces disk writes by 75-90%. Safe for single-server setups that don't need replication.
+innodb_buffer_pool_size = 4G    # Set to ~50% of total RAM
+innodb_io_capacity = 500
+innodb_io_capacity_max = 2500
+innodb_use_fdatasync = ON
+innodb_buffer_pool_instances = 12
+innodb_log_buffer_size = 32M
+transaction_isolation = READ-COMMITTED
