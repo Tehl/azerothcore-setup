@@ -4,6 +4,7 @@ services:
     image: localhost/acore/ac-wotlk-client-data:master
     volumes:
       - systemd-ac-client-data:/azerothcore/env/dist/data
+    network_mode: host
 
   ac-db-import:
     container_name: ac-db-import
@@ -15,8 +16,8 @@ services:
       AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_world"
       AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_characters"
     volumes:
-      - ./modules:/azerothcore/modules:ro,Z
-      - ./env/dist/etc:/azerothcore/env/dist/etc:ro,Z
+      - ./server/modules:/azerothcore/modules:ro,Z
+      - ./server/env/dist/etc:/azerothcore/env/dist/etc:ro,Z
       - systemd-ac-logs:/azerothcore/env/dist/logs
     networks:
       - systemd-azerothcore

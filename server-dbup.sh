@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-podman-compose -f server-compose.yml up ac-db-import \
-    && podman-compose -f server-compose.yml down ac-db-import
+podman-compose up ac-db-import \
+    && podman-compose down ac-db-import
