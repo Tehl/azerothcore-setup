@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source .env
+
 cd server
 
 mkdir -p env/dist/etc/modules
@@ -63,6 +65,6 @@ cp modules/mod-individual-progression/optional/sql/world/zz_optional_vanilla_tra
 7z e modules/mod-individual-progression/optional/patch-V.7z -y -oenv/mpq *.mpq
 
 # Realmlist
-echo "UPDATE realmlist SET address='${APP_SERVER_IP}';" > data/sql/custom/db_auth/realmlist.sql
+echo "UPDATE realmlist SET address='$APP_SERVER_IP';" > data/sql/custom/db_auth/realmlist.sql
 
 cd ..
