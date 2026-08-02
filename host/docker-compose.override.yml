@@ -18,10 +18,13 @@ services:
   ac-worldserver:
     image: localhost/acore/ac-wotlk-worldserver:${DOCKER_IMAGE_TAG:-master}
     build:
-      context: !reset null
-      target: !reset null
-      dockerfile: !reset null
+      args:
+        UBUNTU_VERSION: 24.04-gdb
+    restart: !reset no
+    command: gdb -x /azerothcore/gdb.conf --batch /azerothcore/env/dist/bin/worldserver
     volumes:
+      - ../gdb/gdb.conf:/azerothcore/gdb.conf:ro,Z
+      - ./src:/azerothcore/src:ro,Z
       - ./modules:/azerothcore/modules:ro,Z
       - ./env/dist/etc:/azerothcore/env/dist/etc:ro,Z
       - ./env/dist/data/dbc/SkillLine.dbc:/azerothcore/env/dist/data/dbc/SkillLine.dbc:ro,Z
@@ -49,6 +52,12 @@ services:
 
   ac-dev-server:
     env_file: ../env/config/worldserver.env
+
+  ac-gdb:
+    image: ubuntu:24.04-gdb
+    build:
+      context: ../gdb
+      dockerfile: Dockerfile
 
 volumes:
   ac-logs:
