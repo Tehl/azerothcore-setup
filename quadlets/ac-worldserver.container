@@ -1,0 +1,38 @@
+[Container]
+ContainerName=ac-worldserver
+Image=localhost/acore/ac-wotlk-worldserver:master
+PodmanArgs=--tty --interactive
+Exec=gdb -x /azerothcore/gdb.conf --batch /azerothcore/env/dist/bin/worldserver
+LogOpt=max-size=10m
+StopTimeout=60
+PublishPort=8085:8085/tcp
+PublishPort=7878:7878/tcp
+Volume=ac-logs.volume:/azerothcore/env/dist/logs
+Volume=ac-client-data.volume:/azerothcore/env/dist/data:ro
+Volume=%h/srv/azerothcore/gdb/gdb.conf:/azerothcore/gdb.conf:ro,Z
+Volume=%h/srv/azerothcore/server/src:/azerothcore/src:ro,Z
+Volume=%h/srv/azerothcore/server/modules:/azerothcore/modules:ro,Z
+Volume=%h/srv/azerothcore/server/env/dist/etc:/azerothcore/env/dist/etc:ro,Z
+Volume=%h/srv/azerothcore/server/env/dist/data/dbc/SkillLine.dbc:/azerothcore/env/dist/data/dbc/SkillLine.dbc:ro,Z
+Volume=%h/srv/azerothcore/server/env/dist/data/dbc/SkillLineAbility.dbc:/azerothcore/env/dist/data/dbc/SkillLineAbility.dbc:ro,Z
+Volume=%h/srv/azerothcore/server/env/dist/data/dbc/SkillRaceClassInfo.dbc:/azerothcore/env/dist/data/dbc/SkillRaceClassInfo.dbc:ro,Z
+Volume=%h/srv/azerothcore/server/env/dist/data/dbc/Spell.dbc:/azerothcore/env/dist/data/dbc/Spell.dbc:ro,Z
+Volume=%h/srv/azerothcore/server/env/dist/data/dbc/SpellItemEnchantment.dbc:/azerothcore/env/dist/data/dbc/SpellItemEnchantment.dbc:ro,Z
+EnvironmentFile=%h/srv/azerothcore/server/conf/dist/env.ac
+EnvironmentFile=%h/srv/azerothcore/env/config/worldserver.env
+Environment=TZ=Etc/UTC
+Environment=AC_DATA_DIR=/azerothcore/env/dist/data
+Environment=AC_LOGS_DIR=/azerothcore/env/dist/logs
+Environment=AC_LOGIN_DATABASE_INFO=ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_auth
+Environment=AC_WORLD_DATABASE_INFO=ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_world
+Environment=AC_CHARACTER_DATABASE_INFO=ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_characters
+Environment=AC_PLAYERBOTS_DATABASE_INFO=ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD};acore_playerbots
+Network=azerothcore.network
+
+[Service]
+Restart=always
+EnvironmentFile=%h/srv/azerothcore/host/.env
+
+[Unit]
+Requires=ac-database.service ac-authserver.service
+After=ac-database.service ac-authserver.service

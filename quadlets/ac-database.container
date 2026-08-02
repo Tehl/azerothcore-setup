@@ -1,0 +1,22 @@
+[Container]
+ContainerName=ac-database
+Image=docker.io/library/mysql:8.4
+LogOpt=max-size=10m
+StopTimeout=60
+Volume=ac-database-data.volume:/var/lib/mysql
+Volume=%h/srv/azerothcore/env/mysql:/etc/mysql/conf.d:ro,Z
+Environment=TZ=Etc/UTC
+Environment=MYSQL_ROOT_PASSWORD=${DOCKER_DB_ROOT_PASSWORD}
+Network=azerothcore.network
+Notify=healthy
+HealthCmd=/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute "SHOW DATABASES;"
+HealthInterval=10s
+HealthRetries=3
+HealthTimeout=5s
+
+[Service]
+Restart=always
+EnvironmentFile=%h/srv/azerothcore/host/.env
+
+[Install]
+WantedBy=default.target
