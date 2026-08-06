@@ -50,6 +50,7 @@ cp modules/mod-altbot-sync/conf/mod_altbot_sync.conf.dist env/dist/etc/modules/m
 cp modules/mod-individual-progression/optional/sql/world/zz_optional_ammo_stack_size.sql modules/mod-individual-progression/data/sql/world/base
 cp modules/mod-individual-progression/optional/sql/world/zz_optional_aq_quest_nerf.sql modules/mod-individual-progression/data/sql/world/base
 cp modules/mod-individual-progression/optional/sql/world/zz_optional_item_stack_sizes.sql modules/mod-individual-progression/data/sql/world/base
+cp modules/mod-individual-progression/optional/sql/world/zz_optional_limit_spells_to_expansion.sql modules/mod-individual-progression/data/sql/world/base
 cp modules/mod-individual-progression/optional/sql/world/zz_optional_remove_heirlooms.sql modules/mod-individual-progression/data/sql/world/base
 cp modules/mod-individual-progression/optional/sql/world/zz_optional_restore_potion_cd.sql modules/mod-individual-progression/data/sql/world/base
 cp modules/mod-individual-progression/optional/sql/world/zz_optional_spell_damage_and_healing.sql modules/mod-individual-progression/data/sql/world/base
