@@ -30,7 +30,6 @@ Environment=AC_PLAYERBOTS_DATABASE_INFO=ac-database;3306;root;${DOCKER_DB_ROOT_P
 Network=azerothcore.network
 
 [Service]
-Restart=always
 EnvironmentFile=%h/srv/azerothcore/host/.env
 
 [Unit]
