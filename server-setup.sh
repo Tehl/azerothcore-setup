@@ -31,9 +31,6 @@ cp modules/mod-multibot-bridge/conf/MultiBotBridge.conf.dist env/dist/etc/module
 cp modules/mod-junk-to-gold/conf/mod_junk_to_gold.conf.dist env/dist/etc/modules/mod_junk_to_gold.conf.dist
 cp modules/mod-junk-to-gold/conf/mod_junk_to_gold.conf.dist env/dist/etc/modules/mod_junk_to_gold.conf
 
-cp modules/mod-player-bot-level-brackets/conf/mod_player_bot_level_brackets.conf.dist env/dist/etc/modules/mod_player_bot_level_brackets.conf.dist
-cp modules/mod-player-bot-level-brackets/conf/mod_player_bot_level_brackets.conf.dist env/dist/etc/modules/mod_player_bot_level_brackets.conf
-
 cp modules/mod-playerbots/conf/playerbots.conf.dist env/dist/etc/modules/playerbots.conf.dist
 cp modules/mod-playerbots/conf/playerbots.conf.dist env/dist/etc/modules/playerbots.conf
 
